@@ -12,7 +12,7 @@ function configure() {
   return new Configurator()
     .setEmail(email)
     .setPassword(password)
-    .setUserStorage(new MockUserStorage())
+    .setUserStorage(new MockUserStorage());
 }
 
 describe('Configurator Success cases', () => {
@@ -48,7 +48,7 @@ describe('Configurator Success cases', () => {
   });
 
   it('Can validate an Email', () => {
-    let configurator = configure();
+    configurator = configure();
     configurator.setEmail('mock2@gmail.com');
     expect(configurator.validateEmail).to.not.throwException();
   });
@@ -61,7 +61,7 @@ describe('Configurator Failure cases', () => {
   });
 
   it('Must throw an InvalidEmailException when the email is not a valid one', () => {
-    let configurator = configure();
+    configurator = configure();
     try {
       configurator.setEmail('wrongEmail');
     } catch (e) {
@@ -69,12 +69,12 @@ describe('Configurator Failure cases', () => {
     }
   });
 
-  it('Must throw an InvalidPasswordException when the password does not fit the criteria rules', () => {
-    let configurator = configure();
+  it('Must throw an InvalidPasswordException when the password does not fit the criteria rules', () => { //eslint-disable-line
+    configurator = configure();
     try {
       configurator.setPassword('short');
     } catch (e) {
       expect(Configurator.isConfiguratorException(e)).to.be(true);
     }
   });
-})
+});

@@ -16,7 +16,7 @@ class Configurator {
       setUsername: this.setUsername,
       validateUsername: this.validateUsername,
       additionalAttributes: {},
-    }
+    };
   }
 
   setEmail(email, validationRegex) {
@@ -26,7 +26,7 @@ class Configurator {
   }
 
   validateEmail(emailRegex) {
-    emailRegex = emailRegex || /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    emailRegex = emailRegex || /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //eslint-disable-line
     if (this.email && !emailRegex.test(this.email)) {
       throw new InvalidEmailException();
     }
@@ -63,7 +63,8 @@ class Configurator {
   }
 
   static isConfiguratorException(exception) {
-    return exception instanceof InvalidEmailException || exception instanceof InvalidPasswordException
+    return exception instanceof InvalidEmailException
+      || exception instanceof InvalidPasswordException;
   }
 }
 
@@ -72,7 +73,8 @@ class InvalidEmailException {
 }
 
 class InvalidPasswordException {
-  message = 'The password must contains Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
+  message = 'The password must contains Minimum 8 characters ' +
+    'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
 }
 
-export default Configurator
+export default Configurator;

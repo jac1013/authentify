@@ -55,7 +55,8 @@ class Login {
   }
 
   static isLoginException(exception) {
-    return exception instanceof UnauthorizedException || Configurator.isConfiguratorException(exception);
+    return exception instanceof UnauthorizedException
+      || Configurator.isConfiguratorException(exception);
   }
 }
 

@@ -9,17 +9,17 @@ const id = 1;
 
 class MockUserStorage extends UserStorage {
   findOne() {
-    return new Promise(function(fulfill) {
-      bcrypt.hash(password, 5).then(function(hashedPassword) {
-        fulfill({ email: email, password: hashedPassword });
-      })
-    })
+    return new Promise((fulfill) => {
+      bcrypt.hash(password, 5).then((hashedPassword) => {
+        fulfill({ email, password: hashedPassword });
+      });
+    });
   }
 
   create() {
     return new Promise((fulfill) => {
-      fulfill({ id: id });
-    })
+      fulfill({ id });
+    });
   }
 }
 

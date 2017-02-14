@@ -62,7 +62,8 @@ class Registerer {
   }
 
   static isRegisterException(exception) {
-    return Configurator.isConfiguratorException(exception) || exception instanceof EmailAlreadyExistException
+    return Configurator.isConfiguratorException(exception)
+      || exception instanceof EmailAlreadyExistException
       || exception instanceof UsernameAlreadyExistException
       || exception instanceof UserStorageNotConfigureException;
   }
