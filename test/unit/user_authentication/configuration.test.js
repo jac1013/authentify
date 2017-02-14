@@ -50,7 +50,7 @@ describe('Configurator Success cases', () => {
   it('Can validate an Email', () => {
     let configurator = configure();
     configurator.setEmail('mock2@gmail.com');
-    configurator.validateEmail();
+    expect(configurator.validateEmail).to.not.throwException();
   });
 });
 
