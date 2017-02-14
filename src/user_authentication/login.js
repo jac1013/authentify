@@ -39,18 +39,18 @@ class Login {
 
   isUserNotFound() {
     if (!this.user) {
-      this.throwWrongCredentials();
+      Login.throwWrongCredentials();
     }
   }
 
-  throwWrongCredentials() {
+  static throwWrongCredentials() {
     throw new UnauthorizedException();
   }
 
   async isPasswordIncorrect() {
     const isPasswordCorrect = await this.hashLibrary.compare(this.password, this.user.password);
     if (!isPasswordCorrect) {
-      this.throwWrongCredentials();
+      Login.throwWrongCredentials();
     }
   }
 

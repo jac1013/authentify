@@ -52,7 +52,7 @@ describe('Registerer Success cases', () => {
   });
 
   it('Must be able to delete the password attribute', () => {
-    expect(register.deletePassword({ password: fakePassword })).to.eql({ password: undefined });
+    expect(Registerer.deletePassword({ password: fakePassword })).to.eql({ password: undefined });
   });
 });
 

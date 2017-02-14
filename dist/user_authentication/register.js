@@ -64,7 +64,7 @@ var Registerer = function () {
 
               case 6:
                 hashedPassword = _context.sent;
-                return _context.abrupt('return', this.userStorage.create(this.mergeExtraAttributes(hashedPassword)).then(this.deletePassword));
+                return _context.abrupt('return', this.userStorage.create(this.mergeExtraAttributes(hashedPassword)).then(Registerer.deletePassword));
 
               case 8:
               case 'end':
@@ -221,13 +221,13 @@ var Registerer = function () {
         username: this.username
       });
     }
-  }, {
+  }], [{
     key: 'deletePassword',
     value: function deletePassword(user) {
       user.password = undefined;
       return user;
     }
-  }], [{
+  }, {
     key: 'isRegisterException',
     value: function isRegisterException(exception) {
       return _configurator2.default.isConfiguratorException(exception) || exception instanceof EmailAlreadyExistException || exception instanceof UsernameAlreadyExistException || exception instanceof UserStorageNotConfigureException;

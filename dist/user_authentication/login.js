@@ -175,13 +175,8 @@ var Login = function () {
     key: 'isUserNotFound',
     value: function isUserNotFound() {
       if (!this.user) {
-        this.throwWrongCredentials();
+        Login.throwWrongCredentials();
       }
-    }
-  }, {
-    key: 'throwWrongCredentials',
-    value: function throwWrongCredentials() {
-      throw new UnauthorizedException();
     }
   }, {
     key: 'isPasswordIncorrect',
@@ -199,7 +194,7 @@ var Login = function () {
                 isPasswordCorrect = _context5.sent;
 
                 if (!isPasswordCorrect) {
-                  this.throwWrongCredentials();
+                  Login.throwWrongCredentials();
                 }
 
               case 4:
@@ -217,6 +212,11 @@ var Login = function () {
       return isPasswordIncorrect;
     }()
   }], [{
+    key: 'throwWrongCredentials',
+    value: function throwWrongCredentials() {
+      throw new UnauthorizedException();
+    }
+  }, {
     key: 'isLoginException',
     value: function isLoginException(exception) {
       return exception instanceof UnauthorizedException || _configurator2.default.isConfiguratorException(exception);

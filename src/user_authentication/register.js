@@ -16,7 +16,7 @@ class Registerer {
     await this.checkDuplicatedUsername();
     const hashedPassword = await this.hashPassword();
     return this.userStorage.create(this.mergeExtraAttributes(hashedPassword))
-      .then(this.deletePassword);
+      .then(Registerer.deletePassword);
   }
 
   async checkDuplicatedEmail() {
@@ -56,7 +56,7 @@ class Registerer {
     });
   }
 
-  deletePassword(user) {
+  static deletePassword(user) {
     user.password = undefined;
     return user;
   }
