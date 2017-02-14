@@ -1,6 +1,6 @@
 'use strict';
 
-import UserStorage from '../../../src/user_authentication/user_storage_contract';
+import UserStorage from '../../src/user_authentication/user_storage_contract';
 import bcrypt from 'bcrypt';
 
 const email = 'mock@email.com';

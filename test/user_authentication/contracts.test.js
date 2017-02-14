@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import UserStorage from '../../../src/user_authentication/user_storage_contract';
+import UserStorage from '../../src/user_authentication/user_storage_contract';
 
 
 describe('User Storage Contract', () => {

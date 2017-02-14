@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import Configurator from '../../../src/user_authentication/configurator';
+import Configurator from '../../src/user_authentication/configurator';
 import MockUserStorage from './user_storage_mock';
 
 const email = 'mock@email.com';
