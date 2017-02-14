@@ -42,7 +42,7 @@ describe('Configurator Success cases', () => {
   });
 
   it('Can set User Storage', () => {
-    let mock = new MockUserStorage();
+    const mock = new MockUserStorage();
     configurator.setUserStorage(mock);
     expect(configurator.userStorage).to.eql(mock);
   });

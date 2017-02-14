@@ -48,7 +48,7 @@ class Login {
   }
 
   async isPasswordIncorrect() {
-    let isPasswordCorrect = await this.hashLibrary.compare(this.password, this.user.password);
+    const isPasswordCorrect = await this.hashLibrary.compare(this.password, this.user.password);
     if (!isPasswordCorrect) {
       this.throwWrongCredentials();
     }

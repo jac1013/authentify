@@ -3,7 +3,7 @@ import UserStorage from '../../../src/user_authentication/user_storage_contract'
 
 
 describe('User Storage Contract', () => {
-  let userStorage = new UserStorage();
+  const userStorage = new UserStorage();
 
   it('Must have a function called findOne', () => {
     expect(userStorage.findOne).to.be.a(Function);

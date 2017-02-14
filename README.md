@@ -1,2 +1,2 @@
-# patients-calendar
-API for pointing calendar events, managing special notifications and more.
+# Authentify
+Simple library to register users and login.

@@ -20,7 +20,7 @@ class Registerer {
   }
 
   async checkDuplicatedEmail() {
-    let user = await this.findUser({ email: this.email });
+    const user = await this.findUser({ email: this.email });
     if (user) {
       throw new EmailAlreadyExistException();
     }
@@ -38,7 +38,7 @@ class Registerer {
   }
 
   async checkDuplicatedUsername() {
-    let user = await this.findUser({ username: this.username });
+    const user = await this.findUser({ username: this.username });
     if (user) {
       throw new UsernameAlreadyExistException();
     }
