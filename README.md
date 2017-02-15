@@ -86,4 +86,5 @@ For checking ``Registerer`` exceptions its exactly what you would expect: ``Regi
 
 #TO-DO
 * We should expose all exceptions in case we want to check for one specifically.
+* We should not validate password in the login process.
 
