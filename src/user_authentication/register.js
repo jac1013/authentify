@@ -31,12 +31,6 @@ class Registerer {
     return await this.userStorage.findOne(criteria);
   }
 
-  checkUserStorageToBeSet() {
-    if (!this.userStorage) {
-      throw new UserStorageNotConfigureException();
-    }
-  }
-
   async checkDuplicatedUsername() {
     const user = await this.findUser({ username: this.username });
     if (user) {
@@ -62,10 +56,17 @@ class Registerer {
   }
 
   static isRegisterException(exception) {
-    return Configurator.isConfiguratorException(exception)
-      || exception instanceof EmailAlreadyExistException
-      || exception instanceof UsernameAlreadyExistException
-      || exception instanceof UserStorageNotConfigureException;
+    return this.isEmailAlreadyExistException(exception)
+      || this.isUsernameAlreadyExistException(exception)
+      || Configurator.isConfiguratorException(exception);
+  }
+
+  static isEmailAlreadyExistException(exception) {
+    return exception instanceof EmailAlreadyExistException;
+  }
+
+  static isUsernameAlreadyExistException(exception) {
+    return exception instanceof UsernameAlreadyExistException;
   }
 }
 
@@ -75,10 +76,6 @@ class EmailAlreadyExistException {
 
 class UsernameAlreadyExistException {
   message = 'The username is already chosen.';
-}
-
-class UserStorageNotConfigureException {
-  message = 'You must set a User Storage before calling functions that require to find a user.';
 }
 
 export default Registerer;

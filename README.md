@@ -39,22 +39,22 @@ class MongoUserStorage extends (require('authentify').UserStorage)
 
 * Registerer
 ```JavaScript
-new (require('authentify').Registerer)()
+const user = new (require('authentify').Registerer)()
       .setEmail(email)
       .setUsername(username)
       .setPassword(password)
       .setUserStorage(new MongoUserStorage())
-      .register() // returns the user which was registered.
+      .register()
       .catch(myCatchFunction);
 ```
 * Login
 ```Javascript
-new (require('authentify').Login)()
+const user = new (require('authentify').Login)()
       .setEmail(email)
       .setUsername(username)
       .setPassword(password)
       .setUserStorage(new MongoUserStorage())
-      .authenticate() // returns the user which successfully logon.
+      .authenticate()
       .catch(myCatchFunction);
 ```
 
@@ -78,13 +78,25 @@ try {
 
 For checking ``Registerer`` exceptions its exactly what you would expect: ``Register.isRegistererException()``.
 
+Lastly Both ``Login`` and ``Registerer`` expose API to check each specific exception separately:
+```JavaScript
+Login.isUnauthorizedException(e);
+Registerer.isEmailAlreadyExistException(e);
+Registerer.UsernameAlreadyExistException(e);
+Registerer.UserStorageNotConfigureException(e);
+
+// Lastly the Configurator exceptions which you must use through instances (they are not static methods in Login and Registerer).
+// instance here could be either a Login or Registerer object.
+
+instance.InvalidEmailException(e);
+instance.InvalidPasswordException(e);
+instance.UserStorageNotConfigureException(e);
+
+```
+
 ## How to run build
 ``npm run build``
 
 ## How to run test
 ``npm test``
-
-#TO-DO
-* We should expose all exceptions in case we want to check for one specifically.
-* We should not validate password in the login process.
 

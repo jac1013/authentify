@@ -46,6 +46,11 @@ describe('Login Success cases', () => {
       done();
     });
   });
+
+  it('Can set password ignoring validation criteria', () => {
+    login.setPassword('passwordWithoutCriteria');
+    expect(login.password).to.be('passwordWithoutCriteria');
+  });
 });
 
 describe('Login Failure cases', () => {
@@ -54,10 +59,36 @@ describe('Login Failure cases', () => {
     login = configureLogin();
   });
 
-  it('Must throw a UnauthorizedException when the given credentials are wrong. ', (done) => {
+  it('Must throw an UnauthorizedException when the given credentials are wrong. ', (done) => {
     login.setPassword('wrongPassword1');
     login.authenticate().catch((e) => {
-      expect(Login.isLoginException(e)).to.be(true);
+      expect(Login.isLoginException(e) && Login.isUnauthorizedException(e)).to.be(true);
+      done();
+    });
+  });
+
+  it('Must throw an isInvalidEmailException when we try to set an invalid email', () => {
+    try {
+      login.setEmail('wrongEmail');
+    } catch (e) {
+      expect(login.isInvalidEmailException(e)).to.be(true);
+    }
+  });
+
+  it('Must throw a UserStorageNotConfigureException if you try to use login  before setting the User Storage', (done) => { //eslint-disable-line
+    login.setUserStorage(false);
+    login.authenticate().catch((e) => {
+      expect(Login.isLoginException(e)
+        && login.isUserStorageNotConfigureException(e)).to.be(true);
+      done();
+    });
+  });
+
+  it('Must throw a UserStorageNotConfigureException if you try to find a user without setting a User Storage', (done) => { //eslint-disable-line
+    login.setUserStorage(false);
+    login.findByEmailOrUsername().catch((e) => {
+      expect(Login.isLoginException(e)
+        && login.isUserStorageNotConfigureException(e)).to.be(true);
       done();
     });
   });

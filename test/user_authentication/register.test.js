@@ -62,9 +62,10 @@ describe('Registerer Failure cases', () => {
     register = configureRegister();
   });
 
-  it('Must throw a DuplicatedEmailException when we try to use an email that already exist for register', (done) => { //eslint-disable-line
+  it('Must throw a EmailAlreadyExistException when we try to use an email that already exist for register', (done) => { //eslint-disable-line
     register.register().catch((e) => {
-      expect(Registerer.isRegisterException(e)).to.be(true);
+      expect(Registerer.isRegisterException(e)
+        && Registerer.isEmailAlreadyExistException(e)).to.be(true);
       done();
     });
   });
@@ -72,14 +73,17 @@ describe('Registerer Failure cases', () => {
   it('Must throw a UserStorageNotConfigureException if you try to use register a user before setting the User Storage', (done) => { //eslint-disable-line
     register.setUserStorage(false);
     register.register().catch((e) => {
-      expect(Registerer.isRegisterException(e)).to.be(true);
+      expect(Registerer.isRegisterException(e)
+        && register.isUserStorageNotConfigureException(e)).to.be(true);
       done();
     });
   });
 
-  it('Must throw a DuplicatedEmailException when we try to use an email that already exist for the configuration', (done) => { //eslint-disable-line
-    register.checkDuplicatedEmail().catch((e) => {
-      expect(Registerer.isRegisterException(e)).to.be(true);
+  it('Must throw a EmailAlreadyExistException when we try to use an email that already exist for the configuration', (done) => { //eslint-disable-line
+    configureRegister().checkDuplicatedEmail().catch((e) => {
+      console.log(e);
+      expect(Registerer.isRegisterException(e)
+        && Registerer.isEmailAlreadyExistException(e)).to.be(true);
       done();
     });
   });
@@ -88,17 +92,46 @@ describe('Registerer Failure cases', () => {
     // we don't need to set anything because internally the Mock user
     // storage findOne method will return always something, so the validation
     // a tries to find the username with a criteria and it will find something always and throw.
-    register.checkDuplicatedUsername().catch((e) => {
-      expect(Registerer.isRegisterException(e)).to.be(true);
+    configureRegister().checkDuplicatedUsername().catch((e) => {
+      expect(Registerer.isRegisterException(e)
+        && Registerer.isUsernameAlreadyExistException(e)).to.be(true);
       done();
     });
   });
 
-  it('Must throw a UserStorageNotConfigureException if you try find a user without setting a User Storage', (done) => { //eslint-disable-line
+  it('Must throw a UserStorageNotConfigureException if you try to find a user without setting a User Storage', (done) => { //eslint-disable-line
     register.setUserStorage(false);
     register.findUser().catch((e) => {
-      expect(Registerer.isRegisterException(e)).to.be(true);
+      expect(Registerer.isRegisterException(e)
+        && register.isUserStorageNotConfigureException(e)).to.be(true);
       done();
     });
+  });
+
+  it('Must throw an InvalidPasswordException when the password does not fit the criteria rules', () => { //eslint-disable-line
+    try {
+      register.setPassword('wrongCriteriaPassword');
+    } catch (e) {
+      expect(Registerer.isRegisterException(e)
+        && register.isInvalidPasswordException(e)).to.be(true);
+    }
+  });
+
+  it('Must throw an InvalidPasswordException when the password does not fit the criteria rules', () => { //eslint-disable-line
+    try {
+      register.setPassword('wrongCriteriaPassword');
+    } catch (e) {
+      expect(Registerer.isRegisterException(e)
+        && register.isInvalidPasswordException(e)).to.be(true);
+    }
+  });
+
+  it('Must throw an InvalidEmailException when a invalid email is provided for register', () => {
+    try {
+      register.setEmail('wrongEmail');
+    } catch (e) {
+      expect(Registerer.isRegisterException(e)
+        && register.isInvalidEmailException(e)).to.be(true);
+    }
   });
 });

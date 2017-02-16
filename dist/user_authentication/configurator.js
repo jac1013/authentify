@@ -28,6 +28,10 @@ var Configurator = function () {
       setAdditionalAttributes: this.setAdditionalAttributes,
       setUsername: this.setUsername,
       validateUsername: this.validateUsername,
+      checkUserStorageToBeSet: this.checkUserStorageToBeSet,
+      isInvalidEmailException: Configurator.isInvalidEmailException,
+      isInvalidPasswordException: Configurator.isInvalidPasswordException,
+      isUserStorageNotConfigureException: Configurator.isUserStorageNotConfigureException,
       additionalAttributes: {}
     };
   }
@@ -50,9 +54,9 @@ var Configurator = function () {
     }
   }, {
     key: 'setPassword',
-    value: function setPassword(password) {
+    value: function setPassword(password, passwordRegex) {
       this.password = password;
-      this.validatePassword();
+      this.validatePassword(passwordRegex);
       return this;
     }
   }, {
@@ -82,10 +86,32 @@ var Configurator = function () {
       this.username = username;
       return this;
     }
+  }, {
+    key: 'checkUserStorageToBeSet',
+    value: function checkUserStorageToBeSet() {
+      if (!this.userStorage) {
+        throw new UserStorageNotConfigureException();
+      }
+    }
   }], [{
     key: 'isConfiguratorException',
     value: function isConfiguratorException(exception) {
-      return exception instanceof InvalidEmailException || exception instanceof InvalidPasswordException;
+      return this.isInvalidEmailException(exception) || this.isInvalidPasswordException(exception) || this.isUserStorageNotConfigureException(exception);
+    }
+  }, {
+    key: 'isInvalidEmailException',
+    value: function isInvalidEmailException(exception) {
+      return exception instanceof InvalidEmailException;
+    }
+  }, {
+    key: 'isInvalidPasswordException',
+    value: function isInvalidPasswordException(exception) {
+      return exception instanceof InvalidPasswordException;
+    }
+  }, {
+    key: 'isUserStorageNotConfigureException',
+    value: function isUserStorageNotConfigureException(exception) {
+      return exception instanceof UserStorageNotConfigureException;
     }
   }]);
   return Configurator;
@@ -99,6 +125,11 @@ var InvalidEmailException = function InvalidEmailException() {
 var InvalidPasswordException = function InvalidPasswordException() {
   (0, _classCallCheck3.default)(this, InvalidPasswordException);
   this.message = 'The password must contains Minimum 8 characters ' + 'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
+};
+
+var UserStorageNotConfigureException = function UserStorageNotConfigureException() {
+  (0, _classCallCheck3.default)(this, UserStorageNotConfigureException);
+  this.message = 'You must set a User Storage before calling functions that require to find a user.';
 };
 
 exports.default = Configurator;

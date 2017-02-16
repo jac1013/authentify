@@ -65,7 +65,8 @@ describe('Configurator Failure cases', () => {
     try {
       configurator.setEmail('wrongEmail');
     } catch (e) {
-      expect(Configurator.isConfiguratorException(e)).to.be(true);
+      expect(Configurator.isConfiguratorException(e)
+        && Configurator.isInvalidEmailException(e)).to.be(true);
     }
   });
 
@@ -74,7 +75,8 @@ describe('Configurator Failure cases', () => {
     try {
       configurator.setPassword('short');
     } catch (e) {
-      expect(Configurator.isConfiguratorException(e)).to.be(true);
+      expect(Configurator.isConfiguratorException(e)
+        && Configurator.isInvalidPasswordException(e)).to.be(true);
     }
   });
 });

@@ -15,6 +15,10 @@ class Configurator {
       setAdditionalAttributes: this.setAdditionalAttributes,
       setUsername: this.setUsername,
       validateUsername: this.validateUsername,
+      checkUserStorageToBeSet: this.checkUserStorageToBeSet,
+      isInvalidEmailException: Configurator.isInvalidEmailException,
+      isInvalidPasswordException: Configurator.isInvalidPasswordException,
+      isUserStorageNotConfigureException: Configurator.isUserStorageNotConfigureException,
       additionalAttributes: {},
     };
   }
@@ -33,9 +37,9 @@ class Configurator {
     return true;
   }
 
-  setPassword(password) {
+  setPassword(password, passwordRegex) {
     this.password = password;
-    this.validatePassword();
+    this.validatePassword(passwordRegex);
     return this;
   }
 
@@ -62,9 +66,28 @@ class Configurator {
     return this;
   }
 
+  checkUserStorageToBeSet() {
+    if (!this.userStorage) {
+      throw new UserStorageNotConfigureException();
+    }
+  }
+
   static isConfiguratorException(exception) {
-    return exception instanceof InvalidEmailException
-      || exception instanceof InvalidPasswordException;
+    return this.isInvalidEmailException(exception)
+      || this.isInvalidPasswordException(exception)
+      || this.isUserStorageNotConfigureException(exception);
+  }
+
+  static isInvalidEmailException(exception) {
+    return exception instanceof InvalidEmailException;
+  }
+
+  static isInvalidPasswordException(exception) {
+    return exception instanceof InvalidPasswordException;
+  }
+
+  static isUserStorageNotConfigureException(exception) {
+    return exception instanceof UserStorageNotConfigureException;
   }
 }
 
@@ -75,6 +98,10 @@ class InvalidEmailException {
 class InvalidPasswordException {
   message = 'The password must contains Minimum 8 characters ' +
     'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
+}
+
+class UserStorageNotConfigureException {
+  message = 'You must set a User Storage before calling functions that require to find a user.';
 }
 
 export default Configurator;

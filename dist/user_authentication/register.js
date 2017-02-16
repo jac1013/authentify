@@ -146,13 +146,6 @@ var Registerer = function () {
       return findUser;
     }()
   }, {
-    key: 'checkUserStorageToBeSet',
-    value: function checkUserStorageToBeSet() {
-      if (!this.userStorage) {
-        throw new UserStorageNotConfigureException();
-      }
-    }
-  }, {
     key: 'checkDuplicatedUsername',
     value: function () {
       var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
@@ -230,7 +223,17 @@ var Registerer = function () {
   }, {
     key: 'isRegisterException',
     value: function isRegisterException(exception) {
-      return _configurator2.default.isConfiguratorException(exception) || exception instanceof EmailAlreadyExistException || exception instanceof UsernameAlreadyExistException || exception instanceof UserStorageNotConfigureException;
+      return this.isEmailAlreadyExistException(exception) || this.isUsernameAlreadyExistException(exception) || _configurator2.default.isConfiguratorException(exception);
+    }
+  }, {
+    key: 'isEmailAlreadyExistException',
+    value: function isEmailAlreadyExistException(exception) {
+      return exception instanceof EmailAlreadyExistException;
+    }
+  }, {
+    key: 'isUsernameAlreadyExistException',
+    value: function isUsernameAlreadyExistException(exception) {
+      return exception instanceof UsernameAlreadyExistException;
     }
   }]);
   return Registerer;
@@ -244,11 +247,6 @@ var EmailAlreadyExistException = function EmailAlreadyExistException() {
 var UsernameAlreadyExistException = function UsernameAlreadyExistException() {
   (0, _classCallCheck3.default)(this, UsernameAlreadyExistException);
   this.message = 'The username is already chosen.';
-};
-
-var UserStorageNotConfigureException = function UserStorageNotConfigureException() {
-  (0, _classCallCheck3.default)(this, UserStorageNotConfigureException);
-  this.message = 'You must set a User Storage before calling functions that require to find a user.';
 };
 
 exports.default = Registerer;

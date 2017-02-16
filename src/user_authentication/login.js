@@ -8,7 +8,9 @@ class Login {
   password;
 
   constructor() {
+    const setPassword = this.setPassword;
     Object.assign(this, new Configurator());
+    this.setPassword = setPassword;
     this.hashLibrary = bcrypt;
   }
 
@@ -21,6 +23,7 @@ class Login {
   }
 
   async findByEmailOrUsername() {
+    this.checkUserStorageToBeSet();
     await this.findByEmail();
     await this.findByUsername();
   }
@@ -55,8 +58,17 @@ class Login {
   }
 
   static isLoginException(exception) {
-    return exception instanceof UnauthorizedException
+    return this.isUnauthorizedException(exception)
       || Configurator.isConfiguratorException(exception);
+  }
+
+  static isUnauthorizedException(exception) {
+    return exception instanceof UnauthorizedException;
+  }
+
+  setPassword(password) {
+    this.password = password;
+    return this;
   }
 }
 

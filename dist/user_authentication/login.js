@@ -38,7 +38,9 @@ var Login = function () {
   function Login() {
     (0, _classCallCheck3.default)(this, Login);
 
+    var setPassword = this.setPassword;
     (0, _assign2.default)(this, new _configurator2.default());
+    this.setPassword = setPassword;
     this.hashLibrary = _bcrypt2.default;
   }
 
@@ -84,14 +86,15 @@ var Login = function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                this.checkUserStorageToBeSet();
+                _context2.next = 3;
                 return this.findByEmail();
 
-              case 2:
-                _context2.next = 4;
+              case 3:
+                _context2.next = 5;
                 return this.findByUsername();
 
-              case 4:
+              case 5:
               case 'end':
                 return _context2.stop();
             }
@@ -211,6 +214,12 @@ var Login = function () {
 
       return isPasswordIncorrect;
     }()
+  }, {
+    key: 'setPassword',
+    value: function setPassword(password) {
+      this.password = password;
+      return this;
+    }
   }], [{
     key: 'throwWrongCredentials',
     value: function throwWrongCredentials() {
@@ -219,7 +228,12 @@ var Login = function () {
   }, {
     key: 'isLoginException',
     value: function isLoginException(exception) {
-      return exception instanceof UnauthorizedException || _configurator2.default.isConfiguratorException(exception);
+      return this.isUnauthorizedException(exception) || _configurator2.default.isConfiguratorException(exception);
+    }
+  }, {
+    key: 'isUnauthorizedException',
+    value: function isUnauthorizedException(exception) {
+      return exception instanceof UnauthorizedException;
     }
   }]);
   return Login;
