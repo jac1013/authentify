@@ -82,15 +82,14 @@ Lastly Both ``Login`` and ``Registerer`` expose API to check each specific excep
 ```JavaScript
 Login.isUnauthorizedException(e);
 Registerer.isEmailAlreadyExistException(e);
-Registerer.UsernameAlreadyExistException(e);
-Registerer.UserStorageNotConfigureException(e);
+Registerer.isUsernameAlreadyExistException(e);
 
-// Lastly the Configurator exceptions which you must use through instances (they are not static methods in Login and Registerer).
-// instance here could be either a Login or Registerer object.
+// The Configurator exceptions which you must use through instances (they are not static methods in Login and Registerer).
+// instance here could be either a Login or a Registerer object.
 
-instance.InvalidEmailException(e);
-instance.InvalidPasswordException(e);
-instance.UserStorageNotConfigureException(e);
+instance.isInvalidEmailException(e);
+instance.isInvalidPasswordException(e);
+instance.isUserStorageNotConfigureException(e);
 
 ```
 
