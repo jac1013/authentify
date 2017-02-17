@@ -39,22 +39,24 @@ class MongoUserStorage extends (require('authentify').UserStorage)
 
 * Registerer
 ```JavaScript
-const user = new (require('authentify').Registerer)()
+new (require('authentify').Registerer)()
       .setEmail(email)
       .setUsername(username)
       .setPassword(password)
       .setUserStorage(new MongoUserStorage())
       .register()
+      .then(function(user) {})
       .catch(myCatchFunction);
 ```
 * Login
 ```Javascript
-const user = new (require('authentify').Login)()
+new (require('authentify').Login)()
       .setEmail(email)
       .setUsername(username)
       .setPassword(password)
       .setUserStorage(new MongoUserStorage())
       .authenticate()
+      .then(function(user) {})
       .catch(myCatchFunction);
 ```
 
