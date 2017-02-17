@@ -4,15 +4,30 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
 var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var InvalidEmailException = function InvalidEmailException() {
+  (0, _classCallCheck3.default)(this, InvalidEmailException);
+  this.message = 'The email is not valid.';
+};
+
+var InvalidPasswordException = function InvalidPasswordException() {
+  (0, _classCallCheck3.default)(this, InvalidPasswordException);
+  this.message = 'The password must contains Minimum 8 characters ' + 'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
+};
+
+var UserStorageNotConfigureException = function UserStorageNotConfigureException() {
+  (0, _classCallCheck3.default)(this, UserStorageNotConfigureException);
+  this.message = 'You must set a User Storage before calling functions that require to find a user.';
+};
 
 var Configurator = function () {
   function Configurator() {
@@ -62,8 +77,8 @@ var Configurator = function () {
   }, {
     key: 'validatePassword',
     value: function validatePassword(passwordRegex) {
-      passwordRegex = passwordRegex || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-      if (!passwordRegex.test(this.password)) {
+      var regex = passwordRegex || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+      if (!regex.test(this.password)) {
         throw new InvalidPasswordException();
       }
       return true;
@@ -116,21 +131,6 @@ var Configurator = function () {
   }]);
   return Configurator;
 }();
-
-var InvalidEmailException = function InvalidEmailException() {
-  (0, _classCallCheck3.default)(this, InvalidEmailException);
-  this.message = 'The email is not valid.';
-};
-
-var InvalidPasswordException = function InvalidPasswordException() {
-  (0, _classCallCheck3.default)(this, InvalidPasswordException);
-  this.message = 'The password must contains Minimum 8 characters ' + 'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
-};
-
-var UserStorageNotConfigureException = function UserStorageNotConfigureException() {
-  (0, _classCallCheck3.default)(this, UserStorageNotConfigureException);
-  this.message = 'You must set a User Storage before calling functions that require to find a user.';
-};
 
 exports.default = Configurator;
 module.exports = exports['default'];

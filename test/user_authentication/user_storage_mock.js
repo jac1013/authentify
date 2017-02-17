@@ -1,5 +1,3 @@
-'use strict';
-
 import bcrypt from 'bcrypt';
 import UserStorage from '../../src/user_authentication/user_storage_contract';
 

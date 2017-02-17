@@ -16,13 +16,13 @@ var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
 var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
 var _bcrypt = require('bcrypt');
 
@@ -33,6 +33,11 @@ var _configurator = require('./configurator');
 var _configurator2 = _interopRequireDefault(_configurator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UnauthorizedException = function UnauthorizedException() {
+  (0, _classCallCheck3.default)(this, UnauthorizedException);
+  this.message = 'Wrong Credentials, verify them and try again.';
+};
 
 var Login = function () {
   function Login() {
@@ -238,13 +243,6 @@ var Login = function () {
   }]);
   return Login;
 }();
-
-var UnauthorizedException = function UnauthorizedException() {
-  (0, _classCallCheck3.default)(this, UnauthorizedException);
-  this.WRONG_EMAIL_OR_PASSWORD = 'Wrong Credentials, verify them and try again.';
-
-  this.message = this.WRONG_EMAIL_OR_PASSWORD;
-};
 
 exports.default = Login;
 module.exports = exports['default'];

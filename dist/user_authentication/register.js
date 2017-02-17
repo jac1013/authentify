@@ -16,13 +16,13 @@ var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
 var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
 var _bcrypt = require('bcrypt');
 
@@ -33,6 +33,16 @@ var _configurator = require('./configurator');
 var _configurator2 = _interopRequireDefault(_configurator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EmailAlreadyExistException = function EmailAlreadyExistException() {
+  (0, _classCallCheck3.default)(this, EmailAlreadyExistException);
+  this.message = 'The email is already chosen.';
+};
+
+var UsernameAlreadyExistException = function UsernameAlreadyExistException() {
+  (0, _classCallCheck3.default)(this, UsernameAlreadyExistException);
+  this.message = 'The username is already chosen.';
+};
 
 var Registerer = function () {
   function Registerer() {
@@ -238,16 +248,6 @@ var Registerer = function () {
   }]);
   return Registerer;
 }();
-
-var EmailAlreadyExistException = function EmailAlreadyExistException() {
-  (0, _classCallCheck3.default)(this, EmailAlreadyExistException);
-  this.message = 'The email is already chosen.';
-};
-
-var UsernameAlreadyExistException = function UsernameAlreadyExistException() {
-  (0, _classCallCheck3.default)(this, UsernameAlreadyExistException);
-  this.message = 'The username is already chosen.';
-};
 
 exports.default = Registerer;
 module.exports = exports['default'];

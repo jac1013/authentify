@@ -1,3 +1,16 @@
+class InvalidEmailException {
+  message = 'The email is not valid.';
+}
+
+class InvalidPasswordException {
+  message = 'The password must contains Minimum 8 characters ' +
+    'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
+}
+
+class UserStorageNotConfigureException {
+  message = 'You must set a User Storage before calling functions that require to find a user.';
+}
+
 class Configurator {
   email;
   password;
@@ -44,8 +57,8 @@ class Configurator {
   }
 
   validatePassword(passwordRegex) {
-    passwordRegex = passwordRegex || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    if (!passwordRegex.test(this.password)) {
+    const regex = passwordRegex || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    if (!regex.test(this.password)) {
       throw new InvalidPasswordException();
     }
     return true;
@@ -89,19 +102,6 @@ class Configurator {
   static isUserStorageNotConfigureException(exception) {
     return exception instanceof UserStorageNotConfigureException;
   }
-}
-
-class InvalidEmailException {
-  message = 'The email is not valid.';
-}
-
-class InvalidPasswordException {
-  message = 'The password must contains Minimum 8 characters ' +
-    'at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number.';
-}
-
-class UserStorageNotConfigureException {
-  message = 'You must set a User Storage before calling functions that require to find a user.';
 }
 
 export default Configurator;

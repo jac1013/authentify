@@ -54,12 +54,10 @@
     "extends": "airbnb",
     "parser": "babel-eslint",
     "rules": {
-      "strict": 0,
-      "no-param-reassign": 0,
-      "no-console": 0,
       "comma-dangle": 0,
-      "no-use-before-define": 0,
-      "no-underscore-dangle": 0
+      "no-param-reassign": [2, {
+        "props": false
+      }]
     }
   }
 }

@@ -81,7 +81,6 @@ describe('Registerer Failure cases', () => {
 
   it('Must throw a EmailAlreadyExistException when we try to use an email that already exist for the configuration', (done) => { //eslint-disable-line
     configureRegister().checkDuplicatedEmail().catch((e) => {
-      console.log(e);
       expect(Registerer.isRegisterException(e)
         && Registerer.isEmailAlreadyExistException(e)).to.be(true);
       done();
