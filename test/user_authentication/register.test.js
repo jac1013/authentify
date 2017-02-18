@@ -7,14 +7,6 @@ const password = '123456Ab';
 const id = 1;
 const fakePassword = 'fakePassword';
 
-
-function configureRegister() {
-  return new Registerer()
-    .setEmail(email)
-    .setPassword(password)
-    .setUserStorage(new MockUserStorage());
-}
-
 describe('Registerer Success cases', () => {
   let register;
   before(() => {
@@ -55,6 +47,13 @@ describe('Registerer Success cases', () => {
     expect(Registerer.deletePassword({ password: fakePassword })).to.eql({ password: undefined });
   });
 });
+
+function configureRegister() {
+  return new Registerer()
+    .setEmail(email)
+    .setPassword(password)
+    .setUserStorage(new MockUserStorage());
+}
 
 describe('Registerer Failure cases', () => {
   let register;

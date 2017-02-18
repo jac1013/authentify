@@ -1,10 +1,6 @@
 import bcrypt from 'bcrypt';
 import Configurator from './configurator';
 
-class UnauthorizedException {
-  message = 'Wrong Credentials, verify them and try again.';
-}
-
 class Login {
   user;
   email;
@@ -74,6 +70,10 @@ class Login {
     this.password = password;
     return this;
   }
+}
+
+class UnauthorizedException {
+  message = 'Wrong Credentials, verify them and try again.';
 }
 
 export default Login;

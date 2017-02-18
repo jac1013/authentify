@@ -5,13 +5,6 @@ import MockUserStorage from './user_storage_mock';
 const email = 'mock@email.com';
 const password = '123456Ab';
 
-function configureLogin() {
-  return new Login()
-    .setEmail(email)
-    .setPassword(password)
-    .setUserStorage(new MockUserStorage());
-}
-
 describe('Login Success cases', () => {
   let login;
   before(() => {
@@ -52,6 +45,13 @@ describe('Login Success cases', () => {
     expect(login.password).to.be('passwordWithoutCriteria');
   });
 });
+
+function configureLogin() {
+  return new Login()
+    .setEmail(email)
+    .setPassword(password)
+    .setUserStorage(new MockUserStorage());
+}
 
 describe('Login Failure cases', () => {
   let login;

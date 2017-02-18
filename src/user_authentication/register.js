@@ -1,14 +1,6 @@
 import bcrypt from 'bcrypt';
 import Configurator from './configurator';
 
-class EmailAlreadyExistException {
-  message = 'The email is already chosen.';
-}
-
-class UsernameAlreadyExistException {
-  message = 'The username is already chosen.';
-}
-
 class Registerer {
   email;
   username;
@@ -76,6 +68,14 @@ class Registerer {
   static isUsernameAlreadyExistException(exception) {
     return exception instanceof UsernameAlreadyExistException;
   }
+}
+
+class EmailAlreadyExistException {
+  message = 'The email is already chosen.';
+}
+
+class UsernameAlreadyExistException {
+  message = 'The username is already chosen.';
 }
 
 export default Registerer;

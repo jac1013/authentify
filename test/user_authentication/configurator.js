@@ -7,14 +7,6 @@ const password = '123456Ab';
 const name = { name: 'john' };
 const username = 'username';
 
-
-function configure() {
-  return new Configurator()
-    .setEmail(email)
-    .setPassword(password)
-    .setUserStorage(new MockUserStorage());
-}
-
 describe('Configurator Success cases', () => {
   let configurator;
   before(() => {
@@ -53,6 +45,13 @@ describe('Configurator Success cases', () => {
     expect(configurator.validateEmail).to.not.throwException();
   });
 });
+
+function configure() {
+  return new Configurator()
+    .setEmail(email)
+    .setPassword(password)
+    .setUserStorage(new MockUserStorage());
+}
 
 describe('Configurator Failure cases', () => {
   let configurator;
